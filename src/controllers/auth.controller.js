@@ -20,17 +20,16 @@ const registerController = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    const token = generateToken(user.id, res);
-
-
     const user = await prisma.user.create({
         data: {
             name,
             email,
             password: hashedPassword,
         },
-        token
     });
+
+    const token = generateToken(user.id, res);
+
 
     res.status(201).json({
         status: "success",
@@ -39,7 +38,8 @@ const registerController = async (req, res) => {
                 id: user.id,
                 name: user.name,
                 email: user.email,
-            }
+            },
+            token
         }
     })
 }
