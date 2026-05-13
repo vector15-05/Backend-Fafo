@@ -10,6 +10,11 @@ const app = express();
 const PORT = process.env.PORT || 5001;
 let server;
 
+
+// Parse JSON and urlencoded request bodies so `req.body` is populated
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.use(movieRoutes);
 app.use(authRoutes);
 
@@ -65,3 +70,5 @@ process.on("SIGTERM", async () => {
     }
 });
 
+app.use(movieRoutes);
+app.use(authRoutes);
