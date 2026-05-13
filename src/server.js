@@ -1,6 +1,7 @@
 import express from "express";
 import movieRoutes from "./routes/movie.routes.js";
 import authRoutes from "./routes/auth.routes.js";
+import watchlistRoutes from "./routes/watchlist.routes.js"
 import { config } from "dotenv";
 import { connectDB, disconnectDB } from "./config/db.js";
 
@@ -15,8 +16,9 @@ let server;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(movieRoutes);
+app.use("/movies",movieRoutes);
 app.use(authRoutes);
+app.use("/watchlist",watchlistRoutes);
 
 async function start() {
     try {
